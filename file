@@ -3,3 +3,60 @@ import csv
 import numpy as np
 df = pd.read_csv("insurance.csv")
 df.head()
+
+
+with open("insurance.csv") as insurance_data:
+    insurance_file = csv.DictReader(insurance_data)
+    
+# Creation of basic age stats
+
+    age_list = []
+    for row in insurance_file:
+        age_list.append(row['age'])
+
+    sum_age = 0
+    count_age = len(age_list)
+    for i in range(count_age):
+      sum_age += int(age_list[i])
+
+    avg_age = sum_age/count_age
+
+#AVG age in the populations equals to 39.2 years.
+
+    max_list = int(max(age_list))
+    min_list = int(min(age_list))
+    print(max_list - min_list)
+
+#Max age in the population equals to 64, the minimum to 18 what gives the range of 46 years. 
+
+
+
+========================
+with open("insurance.csv") as insurance_data:
+    insurance_file = csv.DictReader(insurance_data, delimiter = ",")
+
+    cost_list = []
+    for row in insurance_file:
+        cost_list.append(row['charges'])
+
+age_cost = dict(zip(cost_list, age_list))
+
+sortedbyvalue = {k: v for k, v in sorted(age_cost.items(), key = lambda v: v[1])}
+
+# x axis values
+x = sortedbyvalue.values()
+# corresponding y axis values
+y = sortedbyvalue.keys()
+  
+# plotting the points 
+plt.plot(x, y)
+  
+# naming the x axis
+plt.xlabel('x - Age')
+# naming the y axis
+plt.ylabel('y - Charges')
+  
+# giving a title to my graph
+plt.title('Charges vs. age')
+plt.show()
+===========================
