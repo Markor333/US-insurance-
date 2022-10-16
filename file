@@ -29,34 +29,103 @@ with open("insurance.csv") as insurance_data:
 
 #Max age in the population equals to 64, the minimum to 18 what gives the range of 46 years. 
 
+young = list()
+young_adult = list()
+adult = list()
+old_adult = list()
+old = list()
 
+for i in range(len(insurance_list)):
+  age = int(float(insurance_list[i]['age']))
+  if age in range(18, 30):
+    young.append(insurance_list[i])
 
-========================
-with open("insurance.csv") as insurance_data:
-    insurance_file = csv.DictReader(insurance_data, delimiter = ",")
+sum_charges = 0
+count_young = 0
+for i in range(len(young)):
+  if young[i]['smoker'] == 'no':
+    sum_charges += float(young[i]['charges'])
+    count_young += 1
 
-    cost_list = []
-    for row in insurance_file:
-        cost_list.append(row['charges'])
+print(sum_charges/count_young)
+#young smokers pay 27 518 on average.
+#young non smokers pay 4 418 on average.
 
-age_cost = dict(zip(cost_list, age_list))
+for i in range(len(insurance_list)):
+  age = int(float(insurance_list[i]['age']))
+  if age in range(30, 40):
+    young_adult.append(insurance_list[i])
 
-sortedbyvalue = {k: v for k, v in sorted(age_cost.items(), key = lambda v: v[1])}
+sum_charges = 0
+count_young_adult = 0
+for i in range(len(young_adult)):
+  if young_adult[i]['smoker'] == 'yes':
+    sum_charges += float(young_adult[i]['charges'])
+    count_young_adult += 1
 
-# x axis values
-x = sortedbyvalue.values()
-# corresponding y axis values
-y = sortedbyvalue.keys()
-  
-# plotting the points 
-plt.plot(x, y)
-  
-# naming the x axis
-plt.xlabel('x - Age')
-# naming the y axis
-plt.ylabel('y - Charges')
-  
-# giving a title to my graph
-plt.title('Charges vs. age')
-plt.show()
-===========================
+print(sum_charges/count_young_adult)
+#young_adult (30, 39) smokers pay 30 271.3 on average.
+#young_adult (30, 39) non smokers pay 6 337 on average.
+
+for i in range(len(insurance_list)):
+  age = int(float(insurance_list[i]['age']))
+  if age in range(40, 50):
+    adult.append(insurance_list[i])
+
+sum_charges = 0
+count_adult = 0
+for i in range(len(adult)):
+  if adult[i]['smoker'] == 'no':
+    sum_charges += float(adult[i]['charges'])
+    count_adult += 1
+
+print(sum_charges/count_adult)
+#young_adult (40, 49) smokers pay 32 654.72 on average.
+#young_adult (30, 49) non smokers pay 9 183 on average.
+
+for i in range(len(insurance_list)):
+  age = int(float(insurance_list[i]['age']))
+  if age in range(50, 60):
+    old_adult.append(insurance_list[i])
+
+sum_charges = 0
+count_old_adult = 0
+for i in range(len(old_adult)):
+  if old_adult[i]['smoker'] == 'yes':
+    sum_charges += float(old_adult[i]['charges'])
+    count_old_adult += 1
+
+print(sum_charges/count_old_adult)
+#young_adult (40, 49) smokers pay 37 508.75 on average.
+#young_adult (30, 49) non smokers pay 12 749.3 on average.
+
+for i in range(len(insurance_list)):
+  age = int(float(insurance_list[i]['age']))
+  if age in range(60, 70):
+    old.append(insurance_list[i])
+
+sum_charges = 0
+count_old = 0
+for i in range(len(old)):
+  if old[i]['smoker'] == 'yes':
+    sum_charges += float(old[i]['charges'])
+    count_old += 1
+
+print(sum_charges/count_old)
+#old (>60) smokers pay 40 630.7 on average.
+#old (>60) non smokers pay 15 232.7 on average.
+
+sum_charges = 0
+count = 0
+for i in range(len(insurance_list)):
+  if insurance_list[i]['children'] == "4" and insurance_list[i]['smoker'] =="no":
+    sum_charges += float(insurance_list[i]['charges'])
+    count += 1
+
+print(sum_charges/count)
+#Average for non smokers, no children 7611.8
+#Average for non smokers, 1 child 8 303.1
+#Average for non smokers, 2 children 9 493.1
+#Average for non smokers, 3 children 9 614.6
+#Average for non smokers, 4 children 12 121.3
+#Average for non smokers, 5 children 8 183.9
